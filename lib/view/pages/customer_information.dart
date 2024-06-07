@@ -1,31 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:nyntaxfluttertask1/view/pages/constants.dart';
-import 'package:nyntaxfluttertask1/view/pages/customer_information.dart';
 import 'package:nyntaxfluttertask1/view/widgets/input_form_widget.dart';
-import 'package:nyntaxfluttertask1/view/widgets/pick_date_widget.dart';
 import 'package:nyntaxfluttertask1/view/widgets/title_widget.dart';
 
-class ReservationDetailsPage extends StatefulWidget {
-  const ReservationDetailsPage({super.key});
+class CustomerInformationPage extends StatefulWidget {
+  const CustomerInformationPage({super.key});
 
   @override
-  State<ReservationDetailsPage> createState() => _ReservationDetailsPageState();
+  State<CustomerInformationPage> createState() =>
+      _CustomerInformationPageState();
 }
 
-class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
+class _CustomerInformationPageState extends State<CustomerInformationPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          titleSpacing: 0,
+          title: const Text(
+            'Back',
+            style: TextStyle(fontSize: 20),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
               // title
-              const TitleWidget(
-                titleText: 'Reservation Details',
-              ),
+              const TitleWidget(titleText: 'Customer Information'),
               const SizedBox(height: 20),
 
               // container
@@ -38,35 +47,42 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
                   padding: const EdgeInsets.all(15.0),
                   child: Column(
                     children: [
-                      // reservation id
+                      // first name
                       InputFormWidget(
-                        headingText: 'Reservation ID',
+                        headingText: 'First Name',
                         asteric: "*",
                         controller: TextEditingController(),
                       ),
                       const SizedBox(height: 10),
 
-                      // pickup date
-                      PickDateWidget(
-                          headingText: 'Pickup Date',
-                          controller: TextEditingController()),
-                      const SizedBox(height: 10),
-
-                      // return date
-                      PickDateWidget(
-                          headingText: 'Return Date',
-                          controller: TextEditingController()),
-                      const SizedBox(height: 10),
-
-                      // dicount
+                      // last name
                       InputFormWidget(
-                        headingText: 'Dicount',
+                        headingText: 'Last Name',
+                        asteric: "*",
                         controller: TextEditingController(),
-                      )
+                      ),
+                      const SizedBox(height: 10),
+
+                      // email
+                      InputFormWidget(
+                        headingText: 'Email',
+                        asteric: "*",
+                        controller: TextEditingController(),
+                      ),
+                      const SizedBox(height: 10),
+
+                      // phone
+                      InputFormWidget(
+                        headingText: 'Phone',
+                        asteric: "*",
+                        controller: TextEditingController(),
+                      ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
               ),
+
               const SizedBox(height: 50),
 
               ElevatedButton(
@@ -74,13 +90,7 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
                       backgroundColor: primaryBlue),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (builder) =>
-                                const CustomerInformationPage()));
-                  },
+                  onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 15),
