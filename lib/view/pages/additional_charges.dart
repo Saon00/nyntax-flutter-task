@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nyntaxfluttertask1/view/pages/constants.dart';
-import 'package:nyntaxfluttertask1/view/pages/vehicle_info_page.dart';
+import 'package:nyntaxfluttertask1/view/pages/summary_page.dart';
 import 'package:nyntaxfluttertask1/view/widgets/title_widget.dart';
 
 class AdditionalChargesPage extends StatefulWidget {
@@ -145,7 +145,7 @@ class _AdditionalChargesPageState extends State<AdditionalChargesPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (builder) => const VehicleInfoPage()));
+                          builder: (builder) => const SummaryPage()));
                 },
                 child: Padding(
                   padding:

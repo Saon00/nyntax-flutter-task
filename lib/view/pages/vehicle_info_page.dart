@@ -1,9 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:nyntaxfluttertask1/controller/network.dart';
-import 'package:nyntaxfluttertask1/model/car_rent_model.dart';
 import 'package:nyntaxfluttertask1/view/pages/additional_charges.dart';
 import 'package:nyntaxfluttertask1/view/pages/constants.dart';
 import 'package:nyntaxfluttertask1/view/widgets/title_widget.dart';
