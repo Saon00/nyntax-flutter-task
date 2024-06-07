@@ -57,6 +57,28 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
                         controller: TextEditingController()),
                     const SizedBox(height: 10),
 
+                    // duration
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Duration'),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border:
+                                  Border.all(color: greyColor.withOpacity(.5))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              '1 week 2 days 5 hours',
+                              style: TextStyle(color: greyColor),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+
                     // dicount
                     InputFormWidget(
                       headingText: 'Dicount',
