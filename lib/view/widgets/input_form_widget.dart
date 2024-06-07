@@ -17,7 +17,7 @@ class InputFormWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // reservatin id
+        // title
         RichText(
             text: TextSpan(children: [
           TextSpan(
