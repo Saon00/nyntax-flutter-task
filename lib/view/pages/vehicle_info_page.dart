@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:nyntaxfluttertask1/controller/network.dart';
 import 'package:nyntaxfluttertask1/model/car_rent_model.dart';
 import 'package:nyntaxfluttertask1/view/pages/additional_charges.dart';
 import 'package:nyntaxfluttertask1/view/pages/constants.dart';
 import 'package:nyntaxfluttertask1/view/widgets/title_widget.dart';
+
+import 'package:http/http.dart' as http;
 
 class VehicleInfoPage extends StatefulWidget {
   const VehicleInfoPage({super.key});
@@ -16,30 +18,57 @@ class VehicleInfoPage extends StatefulWidget {
 }
 
 class _VehicleInfoPageState extends State<VehicleInfoPage> {
-  // List<String> batchDropDownItem = <String>[
-  //   '--select vehicle type--',
-  //   'Sedan',
-  //   'SUV',
-  // ];
-  // String batchDropDownValue = '--select vehicle type--';
-  Future<List<CarRentModel>>? _carTypeFuture;
-  List<DropdownMenuItem<CarRentModel>>? _carDropDowntype;
+  CarRentModel carRentModel = CarRentModel();
+  List<String> batchDropDownItem = <String>[
+    '--select car type--',
+    'sedan',
+    'suv'
+  ];
+  String batchDropDownValue = '--select car type--';
 
-  Future<List<CarRentModel>> fetchItems() async {
-    final response = await http.get(Uri.parse(API_KEY));
-
-    if (response.statusCode == 200) {
-      final List<dynamic> jsonList = jsonDecode(response.body);
-      return jsonList.map((item) => CarRentModel.fromJson(item)).toList();
-    } else {
-      throw Exception('Failed to load items');
-    }
-  }
+  List<Data> cars = [];
+  List<String> carTypes = [];
+  String? selectedType;
+  List<Data> filteredCars = [];
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _carTypeFuture = fetchItems();
+    fetchCars();
+  }
+
+  Future<void> fetchCars() async {
+    final response = await NetworkUtils.getRequest(API_KEY);
+    if (response != null) {
+      carRentModel = CarRentModel.fromJson(response);
+      setState(() {
+        cars = carRentModel.data!;
+      });
+    } else {
+      debugPrint("Unable to fetch data");
+    }
+  }
+
+  // Future<void> fetchCars() async {
+  //   final response = await http.get(Uri.parse('YOUR_API_ENDPOINT_HERE'));
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     CarRentModel carRentModel = CarRentModel.fromJson(data);
+  //     setState(() {
+  //       cars = carRentModel.data!;
+  //       carTypes = cars.map((car) => car.type!).toSet().toList();
+  //       isLoading = false;
+  //     });
+  //   } else {
+  //     throw Exception('Failed to load cars');
+  //   }
+  // }
+
+  void filterCars(String type) {
+    setState(() {
+      filteredCars = cars.where((car) => car.type == type).toList();
+    });
   }
 
   @override
@@ -91,65 +120,36 @@ class _VehicleInfoPageState extends State<VehicleInfoPage> {
                               fontFeatures: const [FontFeature.superscripts()]))
                     ])),
                     const SizedBox(height: 5),
-                    // FutureBuilder<List<CarRentModel>>(
-                    //   future: _carTypeFuture,
-                    //   builder: (context, snapshot) {
-                    //     if (snapshot.hasError) {
-                    //       return Text('${snapshot.error}');
-                    //     }
 
-                    //     if (!snapshot.hasData) {
-                    //       return const CircularProgressIndicator();
-                    //     }
-
-                    //     _carDropDowntype = snapshot.data!
-                    //         .map((item) => DropdownMenuItem<CarRentModel>(
-                    //               value: item,
-                    //               child: Text(item.type!),
-                    //             ))
-                    //         .toList();
-
-                    //     return DropdownButton<CarRentModel>(
-                    //       items: _carDropDowntype!,
-                    //       onChanged: (item) {
-                    //         // Handle item selection here
-                    //         print('Selected item: ${item!.id}');
-                    //       },
-                    //       isExpanded:
-                    //           true, // Makes the dropdown fill the available space
-                    //       hint: const Text('Select an item'),
-                    //     );
-                    //   },
-                    // ),
-
-                    // DropdownButtonFormField<String>(
-                    //   // hint: const Text('Select Batch'),
-                    //   isExpanded: true,
-                    //   decoration: InputDecoration(
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: greyColor)),
-                    //     enabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: greyColor)),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //     ),
-                    //   ),
-                    //   items: batchDropDownItem.map((String value) {
-                    //     return DropdownMenuItem<String>(
-                    //       value: value,
-                    //       child: Text(
-                    //         value,
-                    //         style: TextStyle(color: greyColor),
-                    //       ),
-                    //     );
-                    //   }).toList(),
-                    //   onChanged: (String? newValue) {
-                    //     setState(() {
-                    //       batchDropDownValue = newValue!;
-                    //     });
-                    //   },
-                    //   value: batchDropDownValue,
-                    // ),
+                    DropdownButtonFormField<String>(
+                      hint: const Text('Select Batch'),
+                      isExpanded: true,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: greyColor)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: greyColor)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      items: carTypes.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(color: greyColor),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          // batchDropDownValue = newValue!;
+                          // filterCars(newValue!);
+                        });
+                      },
+                      // value: batchDropDownValue,
+                    ),
                     const SizedBox(height: 10),
 
                     // vehicle model

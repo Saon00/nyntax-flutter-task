@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nyntaxfluttertask1/controller/customer_info_controller.dart';
 import 'package:nyntaxfluttertask1/controller/reservation_controller.dart';
+import 'package:nyntaxfluttertask1/model/additional_charge_model.dart';
 import 'package:nyntaxfluttertask1/view/pages/constants.dart';
 import 'package:nyntaxfluttertask1/view/widgets/title_widget.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatefulWidget {
-  const SummaryPage({super.key});
+  const SummaryPage(
+      {super.key, required List<AdditionalCharge> selectedCharges});
 
   @override
   State<SummaryPage> createState() => _SummaryPageState();
@@ -160,18 +162,39 @@ class _SummaryPageState extends State<SummaryPage> {
                     color: const Color(0xffdfdfff),
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: primaryBlue)),
-                child: const Padding(
-                  padding: EdgeInsets.all(15.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
                   child: Column(
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('Vehicle Type'), Text('Sedan')],
+                        children: [
+                          Text(
+                            'Charge',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Total',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
-                      SizedBox(height: 10),
-                      Row(
+                      Divider(color: primaryBlue),
+                      const SizedBox(height: 10),
+                      // Provider.of<AdditionalChargeController>(context).isTick1 ?
+
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('Vehicle Model'), Text('Toyota Camry')],
+                        children: [
+                          Text(
+                            'Net Total',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '\$399.00',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
                     ],
                   ),

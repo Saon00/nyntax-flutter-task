@@ -1,4 +1,35 @@
 class CarRentModel {
+  String? status;
+  List<Data>? data;
+  String? message;
+
+  CarRentModel({this.status, this.data, this.message});
+
+  CarRentModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(Data.fromJson(v));
+      });
+    }
+    message = json['message'];
+  }
+
+  get type => null;
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    data['message'] = message;
+    return data;
+  }
+}
+
+class Data {
   String? id;
   String? make;
   String? model;
@@ -10,7 +41,7 @@ class CarRentModel {
   Rates? rates;
   String? imageURL;
 
-  CarRentModel(
+  Data(
       {this.id,
       this.make,
       this.model,
@@ -22,7 +53,7 @@ class CarRentModel {
       this.rates,
       this.imageURL});
 
-  CarRentModel.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     make = json['make'];
     model = json['model'];

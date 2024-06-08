@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nyntaxfluttertask1/controller/additional_charge_controller.dart';
 import 'package:nyntaxfluttertask1/controller/customer_info_controller.dart';
 import 'package:nyntaxfluttertask1/controller/reservation_controller.dart';
 import 'package:nyntaxfluttertask1/view/pages/reservation_details.dart';
@@ -18,6 +19,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ReservationController()),
         ChangeNotifierProvider(
             create: (context) => CustomerInformationController()),
+        ChangeNotifierProvider(create: (context)=> AdditionalChargeController()),
       ],
       child: MaterialApp(
         theme: ThemeData(fontFamily: 'Poppins'),

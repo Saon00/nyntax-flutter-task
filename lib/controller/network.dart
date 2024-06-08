@@ -1,21 +1,22 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:nyntaxfluttertask1/view/pages/constants.dart';
 
 class NetworkUtils {
   // get response
-  static Future<dynamic> getMethod(String url) async {
+  static Future<dynamic> getRequest(String url) async {
     try {
-      http.Response response = await http
-          .get(Uri.parse(url), headers: {"Content-Type": "application/json"});
-      // print(response.body);
+      final Response response = await get(Uri.parse(API_KEY), headers: {
+        'Content-type': 'application/json',
+      });
+
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
-      } else {
-        print("something went wrong");
-      }
+      } else {}
     } catch (e) {
-      print('$e');
+      debugPrint(e.toString());
     }
   }
 }
