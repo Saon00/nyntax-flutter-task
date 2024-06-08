@@ -10,7 +10,8 @@ class PickDateWidget extends StatelessWidget {
     super.key,
     required this.headingText,
     required this.controller,
-    required this.ontap, required this.hintText,
+    required this.ontap,
+    required this.hintText,
   });
 
   @override
@@ -35,6 +36,7 @@ class PickDateWidget extends StatelessWidget {
 
         // inputbox
         TextFormField(
+          readOnly: true,
           cursorColor: primaryBlue,
           keyboardType: TextInputType.text,
           controller: controller,
@@ -45,7 +47,6 @@ class PickDateWidget extends StatelessWidget {
                 onPressed: ontap,
               ),
               hintText: hintText,
-
               focusedBorder:
                   OutlineInputBorder(borderSide: BorderSide(color: greyColor)),
               enabledBorder:

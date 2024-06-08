@@ -1,4 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:nyntaxfluttertask1/model/car_rent_model.dart';
 import 'package:nyntaxfluttertask1/view/pages/additional_charges.dart';
 import 'package:nyntaxfluttertask1/view/pages/constants.dart';
 import 'package:nyntaxfluttertask1/view/widgets/title_widget.dart';
@@ -17,16 +22,25 @@ class _VehicleInfoPageState extends State<VehicleInfoPage> {
   //   'SUV',
   // ];
   // String batchDropDownValue = '--select vehicle type--';
-  List<String> batchDropDownItem = <String>[];
-  String batchDropDownValue = '--select vehicle type--';
+  Future<List<CarRentModel>>? _carTypeFuture;
+  List<DropdownMenuItem<CarRentModel>>? _carDropDowntype;
 
-  // Future<CarRentModel> getcarmodel() async {
-  //   try {
-  //     final result = await NetworkUtils.getMethod(API_KEY);
-  //   } on SocketOption {
-  //     throw Exception('Network Error');
-  //   }
-  // }
+  Future<List<CarRentModel>> fetchItems() async {
+    final response = await http.get(Uri.parse(API_KEY));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      return jsonList.map((item) => CarRentModel.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load items');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _carTypeFuture = fetchItems();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,35 +91,65 @@ class _VehicleInfoPageState extends State<VehicleInfoPage> {
                               fontFeatures: const [FontFeature.superscripts()]))
                     ])),
                     const SizedBox(height: 5),
+                    // FutureBuilder<List<CarRentModel>>(
+                    //   future: _carTypeFuture,
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.hasError) {
+                    //       return Text('${snapshot.error}');
+                    //     }
 
-                    DropdownButtonFormField<String>(
-                      // hint: const Text('Select Batch'),
-                      isExpanded: true,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: greyColor)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: greyColor)),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      items: batchDropDownItem.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(color: greyColor),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          batchDropDownValue = newValue!;
-                        });
-                      },
-                      value: batchDropDownValue,
-                    ),
+                    //     if (!snapshot.hasData) {
+                    //       return const CircularProgressIndicator();
+                    //     }
+
+                    //     _carDropDowntype = snapshot.data!
+                    //         .map((item) => DropdownMenuItem<CarRentModel>(
+                    //               value: item,
+                    //               child: Text(item.type!),
+                    //             ))
+                    //         .toList();
+
+                    //     return DropdownButton<CarRentModel>(
+                    //       items: _carDropDowntype!,
+                    //       onChanged: (item) {
+                    //         // Handle item selection here
+                    //         print('Selected item: ${item!.id}');
+                    //       },
+                    //       isExpanded:
+                    //           true, // Makes the dropdown fill the available space
+                    //       hint: const Text('Select an item'),
+                    //     );
+                    //   },
+                    // ),
+
+                    // DropdownButtonFormField<String>(
+                    //   // hint: const Text('Select Batch'),
+                    //   isExpanded: true,
+                    //   decoration: InputDecoration(
+                    //     focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(color: greyColor)),
+                    //     enabledBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(color: greyColor)),
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //   ),
+                    //   items: batchDropDownItem.map((String value) {
+                    //     return DropdownMenuItem<String>(
+                    //       value: value,
+                    //       child: Text(
+                    //         value,
+                    //         style: TextStyle(color: greyColor),
+                    //       ),
+                    //     );
+                    //   }).toList(),
+                    //   onChanged: (String? newValue) {
+                    //     setState(() {
+                    //       batchDropDownValue = newValue!;
+                    //     });
+                    //   },
+                    //   value: batchDropDownValue,
+                    // ),
                     const SizedBox(height: 10),
 
                     // vehicle model

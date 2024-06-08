@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nyntaxfluttertask1/controller/customer_info_controller.dart';
+import 'package:nyntaxfluttertask1/controller/reservation_controller.dart';
 import 'package:nyntaxfluttertask1/view/pages/constants.dart';
 import 'package:nyntaxfluttertask1/view/widgets/title_widget.dart';
+import 'package:provider/provider.dart';
 
 class SummaryPage extends StatefulWidget {
   const SummaryPage({super.key});
@@ -40,25 +43,36 @@ class _SummaryPageState extends State<SummaryPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: greyColor.withOpacity(.5))),
-                child: const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('Reservation ID'), Text('101')],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('Pickup Date'), Text('101')],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('DropOff Date'), Text('101')],
-                      ),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Consumer<ReservationController>(
+                    builder: (context, value, child) => Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Reservation ID'),
+                            Text(value.reservationID)
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Pickup Date'),
+                            Text(value.pickupdate)
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('DropOff Date'),
+                            Text(value.returndate)
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -73,30 +87,38 @@ class _SummaryPageState extends State<SummaryPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: greyColor.withOpacity(.5))),
-                child: const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('First Name'), Text('Ryan')],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('Last Name'), Text('Ramos')],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('Email'), Text('ryan@gmail.com')],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('Phone'), Text('+001001010')],
-                      ),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Consumer<CustomerInformationController>(
+                    builder: (context, value, child) => Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('First Name'),
+                            Text(value.firstName)
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Last Name'),
+                            Text(value.lastName)
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [const Text('Email'), Text(value.email)],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [const Text('Phone'), Text(value.phone)],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -43,7 +43,7 @@ class InputFormWidget extends StatelessWidget {
               enabledBorder:
                   OutlineInputBorder(borderSide: BorderSide(color: greyColor)),
               contentPadding:
-                  const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: greyColor.withOpacity(.5)))),
         )
