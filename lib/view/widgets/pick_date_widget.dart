@@ -4,10 +4,13 @@ import 'package:nyntaxfluttertask1/view/pages/constants.dart';
 class PickDateWidget extends StatelessWidget {
   final String headingText;
   final TextEditingController controller;
+  final VoidCallback ontap;
+  final String hintText;
   const PickDateWidget({
     super.key,
     required this.headingText,
     required this.controller,
+    required this.ontap, required this.hintText,
   });
 
   @override
@@ -39,9 +42,10 @@ class PickDateWidget extends StatelessWidget {
               suffixIcon: IconButton(
                 color: greyColor,
                 icon: const Icon(Icons.calendar_month),
-                onPressed: () {},
+                onPressed: ontap,
               ),
-              hintText: "Select Date and Time",
+              hintText: hintText,
+
               focusedBorder:
                   OutlineInputBorder(borderSide: BorderSide(color: greyColor)),
               enabledBorder:
