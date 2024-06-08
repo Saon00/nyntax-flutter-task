@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:nyntaxfluttertask1/controller/network.dart';
@@ -7,8 +6,6 @@ import 'package:nyntaxfluttertask1/model/car_rent_model.dart';
 import 'package:nyntaxfluttertask1/view/pages/additional_charges.dart';
 import 'package:nyntaxfluttertask1/view/pages/constants.dart';
 import 'package:nyntaxfluttertask1/view/widgets/title_widget.dart';
-
-import 'package:http/http.dart' as http;
 
 class VehicleInfoPage extends StatefulWidget {
   const VehicleInfoPage({super.key});
@@ -19,12 +16,12 @@ class VehicleInfoPage extends StatefulWidget {
 
 class _VehicleInfoPageState extends State<VehicleInfoPage> {
   CarRentModel carRentModel = CarRentModel();
-  List<String> batchDropDownItem = <String>[
+  List<String> carDropDownItem = <String>[
     '--select car type--',
     'sedan',
     'suv'
   ];
-  String batchDropDownValue = '--select car type--';
+  String carDropDownValue = '--select car type--';
 
   List<Data> cars = [];
   List<String> carTypes = [];
@@ -133,7 +130,7 @@ class _VehicleInfoPageState extends State<VehicleInfoPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      items: carTypes.map((String value) {
+                      items: carDropDownItem.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(
@@ -144,11 +141,11 @@ class _VehicleInfoPageState extends State<VehicleInfoPage> {
                       }).toList(),
                       onChanged: (String? newValue) {
                         setState(() {
-                          // batchDropDownValue = newValue!;
+                          carDropDownValue = newValue!;
                           // filterCars(newValue!);
                         });
                       },
-                      // value: batchDropDownValue,
+                      value: carDropDownValue,
                     ),
                     const SizedBox(height: 10),
 

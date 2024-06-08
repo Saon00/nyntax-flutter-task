@@ -19,7 +19,8 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ReservationController()),
         ChangeNotifierProvider(
             create: (context) => CustomerInformationController()),
-        ChangeNotifierProvider(create: (context)=> AdditionalChargeController()),
+        ChangeNotifierProvider(
+            create: (context) => AdditionalChargeController()),
       ],
       child: MaterialApp(
         theme: ThemeData(fontFamily: 'Poppins'),
