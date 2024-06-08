@@ -188,6 +188,78 @@ class _VehicleInfoPageState extends State<VehicleInfoPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 20),
+
+            // container
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: greyColor.withOpacity(.5))),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/model1.png",
+                          height: 100,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Toyota Camry",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.people,
+                                  color: greyColor,
+                                ),
+                                Text(
+                                  "4 seat",
+                                  style: TextStyle(color: greyColor),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.shopping_bag,
+                                  color: greyColor,
+                                ),
+                                Text(
+                                  "3 bags",
+                                  style: TextStyle(color: greyColor),
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    Divider(
+                      color: greyColor,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("\$15/Hour", style: TextStyle(color: greyColor)),
+                        Text("\$70/Day", style: TextStyle(color: greyColor)),
+                        Text("\$250/Week", style: TextStyle(color: greyColor)),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
 
             const SizedBox(height: 50),
 
