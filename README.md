@@ -38,4 +38,4 @@ A problem arises when a customer rents a car for a period that could be billed a
 
 <b>Solution</b>
 
-We can build a sytem which will count the both scenario. Then in which solution provides the more advantages for the client we can count that amount.
+There we can add two different ideas: Calculate the bill according to the Hourly Rate and Daily Rate. We can build a sytem which will count the both scenario. Then in which solution provides the more advantages for the client we can count that amount.
